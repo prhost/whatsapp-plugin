@@ -3,7 +3,7 @@
 use GetByte\Whatsapp\Classes\Helpers\Lazy;
 use GetByte\Whatsapp\Classes\WhatsAppService;
 use GetByte\Whatsapp\Models\Account;
-use RainLab\Notify\Classes\ActionBase;
+use General\Notify\Classes\ActionBase;
 
 class SendWhatsappMessage extends ActionBase
 {
