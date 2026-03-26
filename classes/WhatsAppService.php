@@ -70,6 +70,18 @@ class WhatsAppService
                     ],
                 ]);
             }
+        } else {
+            MessageLog::create([
+                'to_phone_number' => $phoneNumber ?? '',
+                'account_id'      => $account->id,
+                'message_type'    => $messageType,
+                'error'           => 'Invalid phone number',
+                'content'         => [
+                    'content'           => $content,
+                    'document_filename' => $document_filename ?? '',
+                    'caption'           => $caption ?? '',
+                ],
+            ]);
         }
     }
 }

@@ -3,7 +3,7 @@
 use GetByte\Whatsapp\Classes\Helpers\Lazy;
 use GetByte\Whatsapp\Classes\WhatsAppService;
 use GetByte\Whatsapp\Models\Account;
-use RainLab\Notify\Classes\ActionBase;
+use General\Notify\Classes\ActionBase;
 
 class SendWhatsappMessage extends ActionBase
 {
@@ -67,7 +67,7 @@ class SendWhatsappMessage extends ActionBase
         }
 
         if (!$account && ($secret_key || $account_id)) {
-            trace_log('Whatsapp Account not found. Secret Key: ' . $secret_key . ' Account ID: ' . $account_id);
+            \Log::error('Whatsapp Account not found. Secret Key: ' . $secret_key . ' Account ID: ' . $account_id);
             return;
         }
 
@@ -80,8 +80,13 @@ class SendWhatsappMessage extends ActionBase
         }
 
         if ($account->status != 'CONNECTED') {
-            WhatsAppService::getStatus($account);
-            throw new \Exception('The WhatsApp account is not connected - ' . $account->status . ' - ' . $account->name);
+            $status = WhatsAppService::getStatus($account);
+            if ($status->getStatus() != 'CONNECTED') {
+                \Log::error('The WhatsApp account is not connected - ' . $account->status . ' - ' . $account->name);
+                return;
+            } else {
+                $account->status = 'CONNECTED';
+            }
         }
 
         $phoneNumber = Lazy::twigRawParser((string)$this->host->user_phone_number, $params);
