@@ -7,8 +7,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('getbyte_whatsapp_accounts', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->increments('id')->unsigned();
+            $table->increments('id');
             $table->string('name');
             $table->string('whatsapp_type');
             $table->string('secret_key');

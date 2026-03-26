@@ -8,7 +8,7 @@ return new class extends Migration {
     {
         Schema::table('getbyte_whatsapp_logs', function (Blueprint $table) {
             $table->dropColumn('from_device_token');
-            $table->unsignedBigInteger('account_id')->nullable()->after('id')->index();
+            $table->bigInteger('account_id')->nullable()->after('id')->index();
         });
     }
 

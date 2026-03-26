@@ -7,8 +7,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('getbyte_whatsapp_logs', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->increments('id')->unsigned();
+            $table->increments('id');
             $table->string('to_phone_number')->nullable();
             $table->string('from_device_token')->nullable();
             $table->string('message_type')->nullable();
